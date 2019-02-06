@@ -17,7 +17,9 @@ unit Uimport;
 
 interface
 
-uses Classes, Forms, Controls, Dialogs, SysUtils, Uutils, Uglobals;
+uses
+ Classes, Forms, Controls, Dialogs, SysUtils, System.UITypes,
+ Uutils, Uglobals;
 
 const
   MSG_INVALID_FILE = ' is not a valid EPANET data file.';
@@ -1944,7 +1946,7 @@ begin
     else
     begin
       Screen.Cursor := crDefault;
-      MessageDlg(MSG_NO_READ_MAP_FILE + MapFile, mtWarning, [mbOK], 0);
+      Uutils.MsgDlg(MSG_NO_READ_MAP_FILE + MapFile, mtWarning, [mbOK]);
       Result := False
     end;
     CloseFile(F);
@@ -1952,7 +1954,7 @@ begin
   else
   begin
     Screen.Cursor := crDefault;
-    MessageDlg(MSG_MAP_FILE + MapFile + MSG_NOT_EXIST, mtWarning, [mbOK], 0);
+    Uutils.MsgDlg(MSG_MAP_FILE + MapFile + MSG_NOT_EXIST, mtWarning, [mbOK]);
     Result := False;
   end;
 end;
@@ -2090,8 +2092,8 @@ begin
   CloseFile(F);
   Uinput.UpdateEditor(EditorObject,EditorIndex);
   MainForm.RefreshMapForm;
-  if not R then MessageDlg(
-   Fname + MSG_INVALID_FILE, mtError, [mbOK], 0)
+  if not R then Uutils.MsgDlg(
+   Fname + MSG_INVALID_FILE, mtError, [mbOK])
   else HasChanged := True;
 end;
 

@@ -91,7 +91,8 @@ unit Uinput;
 interface
 
 uses Controls, Classes, SysUtils, Dialogs, Windows, Math,
-     Forms, Graphics, Uglobals, Uutils, Fproped;
+     Forms, Graphics, System.UITypes,
+     Uglobals, Uutils, Fproped;
 
 const
   FMT_NODE_EXISTS = 'Node %s already exists.';
@@ -529,7 +530,7 @@ procedure EditDemands(const Index: Integer);
 // Invokes Demand Editor form to edit junction's demands
 //-------------------------------------------------------
 begin
-  with TDemandsForm.Create(Application) do
+  with TDemandsForm.Create(PropEditForm) do
   try
     Caption := TXT_DEMAND_EDITOR + GetID(JUNCS,Index);
     LoadDemands;
@@ -1117,8 +1118,8 @@ begin
   end;
   UpdateEditor(EditorObject, EditorIndex);
   if Count > 0 then MainForm.SetChangeFlags;
-  MessageDlg(IntToStr(count) + ' ' + ObjectLabel[ObjType] +
-    TXT_WERE_UPDATED,mtInformation,[mbOK],0);
+  Uutils.MsgDlg(IntToStr(count) + ' ' + ObjectLabel[ObjType] +
+    TXT_WERE_UPDATED,mtInformation,[mbOK]);
 end;
 
 
@@ -1134,7 +1135,7 @@ var
   p1      : TPoint;
 begin
 // Confirm deletion
- if MessageDlg(MSG_CONFIRM_DELETE, mtConfirmation,[mbYes,mbNo],0) = mrNo
+ if Uutils.MsgDlg(MSG_CONFIRM_DELETE, mtConfirmation,[mbYes,mbNo]) = mrNo
    then Exit;
 
 //Create a GDI region from user's fenceline region
@@ -2229,8 +2230,8 @@ begin
 // If ID exists then restore current ID & exit.
   if Network.Lists[CurrentList].IndexOf(S) >= 0 then
   begin
-    MessageDlg(MSG_ALREADY_HAVE + ObjectLabel[CurrentList] +
-      TXT_NAMED + S, mtError, [mbOK], 0);
+    Uutils.MsgDlg(MSG_ALREADY_HAVE + ObjectLabel[CurrentList] +
+      TXT_NAMED + S, mtError, [mbOK]);
     Network.Lists[CurrentList].Strings[i] := s1;
     Result := True;
     Exit;

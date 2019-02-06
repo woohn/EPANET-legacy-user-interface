@@ -10,6 +10,7 @@ unit Uglobals;
 {                             3/1/01                                }
 {                             11/19/01                              }
 {                             2/14/07      (2.00.12)                }
+{                             5/11/18                               }
 {                    Author:  L. Rossman                            }
 {                                                                   }
 {   Delphi Pascal unit that defines all global data types and       }
@@ -306,7 +307,7 @@ const
 // Map and default legend colors
 //------------------------------
   MapBackColor: array[1..5] of TColor =
-    (clWhite, clInfoBk, clSilver, clBlack, clWhite);
+    (clWhite, clInfoBk, clBtnFace, clBlack, clWhite);
   MapForeColor: array[1..5] of TColor =
     (clBlack, clBlack, clBlack, clWhite, clSilver);
   MapGrayColor: array[1..5] of TColor =
@@ -439,6 +440,7 @@ type
     SymbolZoom       : Integer;
     ArrowZoom        : Integer;
     NotationSize     : Integer;        {*** Updated 3/1/01 ***}
+    DispLinkBorder   : Boolean;        {*** Added 5/11/18 ***}
   end;
 
 //-----------
@@ -724,14 +726,15 @@ const
      LabelZoom       : 100;
      SymbolZoom      : 100;
      ArrowZoom       : 100;
-     NotationSize    : 7);             {*** Updated 3/1/01 ***}
+     NotationSize    : 7;             {*** Updated 3/1/01 ***}
+     DispLinkBorder  : False);        {*** Added 5/11/18 ***}
 
   DefGraphOptions: TGraphOptions =
     (View3D          : False;
      Percent3D       : 25;
      PanelColor      : clBtnFace;
      BackColor       : clWhite;
-     LegendPosition  : 1;
+     LegendPosition  : 2;
      LegendColor     : clWhite;
      LegendWidth     : 60;
      LegendFramed    : True;
@@ -785,6 +788,7 @@ var
 //--------------------
 // Program preferences
 //--------------------
+  StyleName     : String;
   FontName      : String;
   BoldFonts     : Boolean;              //Dialogs use bold fonts
   Blinking      : Boolean;              //Map hilighter blinks
@@ -1193,7 +1197,7 @@ begin
   with aForm.Font do
   begin
     Name := FontName;  //'Arial'; //'MS Sans Serif';
-    Size := 8;
+    Size := 9;  //8;
     if BoldFonts then Style := [fsBold]
     else Style := [];
   end;
