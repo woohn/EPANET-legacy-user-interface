@@ -15,7 +15,7 @@ The code is contained in the following folders:
                    Windows version of EPANET 2.2. Should be
                    compiled into an executable named epanet2w.exe
                    for use with the EPANET program. 
-                   Files last updated on 2/25/08.
+                   Files last updated on 11/14/2018.
     
     
   compiler: 
